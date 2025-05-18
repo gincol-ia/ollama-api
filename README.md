@@ -11,7 +11,7 @@
   <img src="docs/img/banner.png" alt="LLM Chat with Redis Memory" width="800px">
 </p>
 
-A professional, high-performance chat interface for interacting with Large Language Models via Ollama, featuring persistent memory storage with Redis. This project provides a complete solution for deploying and interacting with LLMs on your local machine, optimized specifically for Apple Silicon (M-series chips).
+A weekend project chat interface for interacting with Large Language Models via Ollama with Redis-based conversation memory. Developed as a proof-of-concept using a "vibe coding" approach (literally built over a weekend), this project demonstrates how to create a functional LLM chat system with persistent storage. While optimized for Apple Silicon (M-series chips), it serves as an educational template rather than a production-ready solution.
 
 ## ✨ Features
 
