@@ -186,22 +186,73 @@ volumes:
 
 ## 🧪 Development Setup
 
-For development, you can run components individually:
+For development, you can run components individually. Make sure to set the required environment variables for proper functioning.
 
 ### Backend
 
 ```bash
+# Change to the backend directory
 cd fastapi
+
+# Install dependencies
 pip install -r ../requirements.txt
+
+# Set required environment variables
+export OLLAMA_API_BASE_URL=http://192.168.1.46:11434  # Replace with your Ollama server URL
+export LOG_LEVEL=INFO
+export REDIS_HOST=localhost  # Use localhost or the actual Redis host
+export REDIS_PORT=6379
+export CONVERSATION_TTL=43200  # 12 hours in seconds
+
+# Run the FastAPI server with hot reload
 uvicorn main:app --reload --host 0.0.0.0 --port 8000
 ```
 
 ### Frontend
 
 ```bash
+# Change to the frontend directory
 cd streamlit
+
+# Install dependencies
 pip install -r ../requirements.txt
+
+# Set the API URL environment variable
+export FASTAPI_URL=http://localhost:8000  # Point to your FastAPI server
+
+# Run the Streamlit app
 streamlit run app_streamlit.py
+```
+
+### Redis Server
+If you want to run Redis locally instead of using Docker, you can install Redis on your machine and start it with the default configuration. Make sure to set the same environment variables as mentioned above.
+```bash
+# Install Redis (if not already installed)
+brew install redis
+# Start Redis server
+redis-server
+```
+For Windows users, you can follow the [Redis installation guide](https://redis.io/docs/latest/operate/oss_and_stack/install/archive/install-redis/install-redis-on-windows/) to set up Redis on your machine.
+
+Or if you prefer to use Docker, you can run Redis with the following command:
+```bash
+docker run -d --name redis -p 6379:6379 redis
+```
+### Redis Insight
+If you want to run Redis Insight locally instead of using Docker, you can install Redis Insight on your machine and connect it to your local Redis server. Make sure to set the same environment variables as mentioned above.
+
+```bash
+# Install Redis Insight (if not already installed)
+brew install redisinsight
+# Start Redis Insight
+redisinsight
+```
+For Windows users, you can follow the [Redis Insight installation guide](https://redis.io/kb/doc/18gyy2gec1/how-to-download-and-install-redisinsight) to set up Redis Insight on your machine.
+
+### Redis Insight with Docker
+If you want to run Redis Insight with Docker, you can use the following command:
+```bash
+docker run -d -p 8001:8001 --name redisinsight --network ollama-api_default redislabs/redisinsight
 ```
 
 ## 📚 API Documentation
