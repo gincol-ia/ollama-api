@@ -1,0 +1,29 @@
+# Bytecode
+*.pyc
+__pycache__/
+
+# Virtual environment
+.venv/
+venv/
+
+# Dependencies
+Pipfile.lock
+
+# Data files (adjust as needed)
+*.csv
+*.json
+*.db
+data/
+
+# Logs
+*.log
+
+# IDE/Editor files
+.idea/
+.vscode/
+
+# OS specific files
+.DS_Store
+
+# Streamlit cache
+.streamlit/cache/

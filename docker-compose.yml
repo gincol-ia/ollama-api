@@ -1,0 +1,51 @@
+services:
+ 
+  fastapi:
+    build:
+      context: .
+      dockerfile: ./fastapi/Dockerfile
+    container_name: fastapi
+    ports:
+      - 8000:8000
+    environment:
+      - OLLAMA_API_BASE_URL=http://192.168.1.XXX:11434
+      - LOG_LEVEL=INFO
+      - WORKERS=4
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - CONVERSATION_TTL=43200  
+
+  streamlit:
+    build:
+      context: .
+      dockerfile: ./streamlit/Dockerfile
+    container_name: streamlit
+    ports:
+      - "8501:8501"
+    environment:
+      - FASTAPI_URL=http://fastapi:8000
+
+  redis:
+    image: redis:8.0.1-alpine
+    container_name: redis
+    ports:
+      - 6379:6379
+    volumes:
+      - redis-data:/data
+
+  redis-ui:
+    image: redis/redisinsight:2.68
+    container_name: redis-ui
+    environment:
+      - RI_REDIS_HOST=redis
+      - RI_REDIS_PORT=6379
+    ports:
+      - 5540:5540
+    volumes:
+      - redisinsight-data:/data
+  
+volumes:
+  redisinsight-data:
+    driver: local
+  redis-data:
+    driver: local
